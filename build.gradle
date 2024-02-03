@@ -1,0 +1,68 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher' // See https://docs.gradle.org/8.3/userguide/upgrading_version_8.html#test_framework_implementation_dependencies
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.data:spring-data-jdbc'
+	implementation 'com.h2database:h2'
+	// runtimeOnly 'com.h2database:h2'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed" //, "standardOut", "standardError"
+
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces false
+
+        // Change to `true` for more verbose test output
+        showStandardStreams = true
+    }
+}
+
+// sourceSets {
+//     test {
+//         resources {
+//             srcDirs 'src/test/resources'
+//         }
+//     }
+// }
+
+// processTestResources {
+//     from 'src/test/resources'
+//     filter {
+//         include('data.sql')
+//     }
+// } 
+
+// processResources {
+//     from 'src/main/resources'
+//     filter {
+//         include('data.sql')
+//     }
+// }
